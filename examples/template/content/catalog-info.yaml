@@ -1,0 +1,19 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ values.name | dump }}
+  title: ${{ values.title | dump }}
+  description: ${{ values.description | dump }}
+  annotations:
+    products.example.com/product-id: ${{ values.productId | dump }}
+    products.example.com/domain: ${{ values.domain | dump }}
+    products.example.com/version: ${{ values.version | dump }}
+    products.example.com/tier: ${{ values.tier | dump }}
+    products.example.com/data-classification: ${{ values.dataClassification | dump }}
+    products.example.com/compliance: ${{ values.compliance | dump }}
+    products.example.com/environments: ${{ values.environments | join(',') | dump }}
+spec:
+  type: service
+  owner: ${{ values.owner | dump }}
+  lifecycle: ${{ values.lifecycle | dump }}
+
