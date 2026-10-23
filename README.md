@@ -1,4 +1,85 @@
-Backstage Products Plugin — Setup, Debugging & Database Guide
+# Backstage Products Plugin — Setup, Debugging & Database Guide
+
+## 1. Quick Start: Clone and Run Backstage
+
+Use these steps to get the project running locally from a fresh clone. The rest of this README covers the Products plugin, API, database, and troubleshooting.
+
+### Prerequisites
+
+- Git
+- Node.js and Corepack
+- The project's pinned Yarn version (check `package.json` / `packageManager`)
+- GitHub access if you need to publish repositories through the Software Scaffolder
+
+> **Note:** This project has been developed in WSL Ubuntu. Use the Node.js and Yarn versions specified by the repository. If your `package.json` pins Yarn 4.13.0, use that version rather than upgrading Yarn independently.
+
+Check your tools:
+
+```bash
+node --version
+corepack --version
+yarn --version
+git --version
+```
+
+### Clone the repository
+
+Replace the placeholders with your actual GitHub repository URL and directory name:
+
+```bash
+git clone <YOUR_GITHUB_REPOSITORY_URL>
+cd <YOUR_REPOSITORY_NAME>
+```
+
+### Install dependencies
+
+Run this from the repository root:
+
+```bash
+yarn install
+```
+
+Keep the committed `yarn.lock` and `.yarn/releases/` files; they help keep dependency versions consistent.
+
+### Configure local environment
+
+Review `app-config.yaml` and `app-config.production.yaml` before starting. Set any environment variables required by your configuration using your team's approved method. Common examples in this project may include `GITHUB_TOKEN` for GitHub integration and PostgreSQL variables when using production configuration.
+
+Do not commit secrets, tokens, passwords, private keys, or real `.env` files. Use local environment variables or an approved untracked environment file.
+
+### Start the development environment
+
+From the project root:
+
+```bash
+yarn dev
+```
+
+Wait for the frontend and backend to finish starting. With the current local configuration, the expected URLs are:
+
+- Frontend: http://localhost:3000
+- Backend: http://localhost:7007
+
+Keep the terminal open while developing; press `Ctrl+C` to stop the processes. If startup reports different ports or a script error, trust the terminal output and inspect the root `package.json` scripts.
+
+### Quick verification
+
+```bash
+ss -ltnp | grep -E ':3000|:7007'
+```
+
+Then open http://localhost:3000 and navigate to the Products page (usually `/products`).
+
+### First-time setup troubleshooting
+
+- **`yarn: command not found`:** Check `node --version` and `corepack --version`; enable Corepack if needed, following your OS/team setup instructions.
+- **Dependency install fails:** Confirm Node.js/Yarn versions match the repository, then inspect the first meaningful error from `yarn install`.
+- **Port already in use:** Check `ss -ltnp | grep -E ':3000|:7007'` and identify the process before stopping it.
+- **GitHub publishing fails:** Verify GitHub integration settings, required environment variables, and repository permissions.
+- **Products page or API fails:** Continue to the Products troubleshooting sections below.
+
+---
+
 1. Project Overview
 
 This project contains a custom Backstage Products plugin with a frontend page and a backend API.
